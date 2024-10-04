@@ -1,2 +1,3 @@
 docker top 6
-config
+docker config
+git pull
