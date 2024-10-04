@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: google-downloader-daemonset
+  labels:
+    app: google-downloader
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: google-downloader
+  template:
+    metadata:
+      labels:
+        app: google-downloader
+    spec:
+      containers:
+      - name: google-downloader-container
+        image: busybox:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do
+            wget -q -O /tmp/google.html https://www.google.com;
+            echo "Downloaded google.com at $(date)";
+            sleep 600;  # 600 seconds is 10 minutes
+          done
+        volumeMounts:
+        - name: tmp-storage
+          mountPath: /tmp
+      nodeSelector:
+        kubernetes.io/os: linux
+      volumes:
+      - name: tmp-storage
+        emptyDir: {}
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1

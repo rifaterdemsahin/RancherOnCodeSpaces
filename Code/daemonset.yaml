@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: simple-daemonset
+  labels:
+    app: simple-daemonset
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: simple-daemonset
+  template:
+    metadata:
+      labels:
+        app: simple-daemonset
+    spec:
+      containers:
+      - name: daemon-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        kubernetes.io/os: linux
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
