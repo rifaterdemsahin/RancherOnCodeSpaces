@@ -61,7 +61,7 @@ docker pull rancher/rancher:latest
 Start the Rancher container with the following command:
 
 ```bash
-docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
+docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
 ```
 
 ### 6. Access Rancher UI
