@@ -1,1 +1,2 @@
-Complete the rancher install on your end and login and run hello-world 
+# Objective :  Ran Rancher
+# Key Result : Login and run hello-world take a screenshot in your own repo
